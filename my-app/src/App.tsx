@@ -2,6 +2,11 @@ import React, {useEffect} from 'react';
 import './App.css';
 import { useState } from 'react';
 import imageToAdd from "./logo.png";
+import { createClient} from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://hutlkszqjimqkjbkchsg.supabase.co/';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1dGxrc3pxamltcWtqYmtjaHNnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMjk3NTI2NSwiZXhwIjoyMDI4NTUxMjY1fQ.F3Td4ApsS9FCLcvwYDHPI4DTsEtA9iTRQeIbJikBnWw';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 function getUserID() {
   // Key to store/retrieve the user ID
@@ -80,9 +85,29 @@ const ReadAlong: React.FC<ReadAlongProps> = ({ text, baseInterval = 1000 }) => {
     );
   }
 };
+ function queryMachine () {
+          return !(supabase
+            .from('Machine')
+            select('isEmpty')
+            .eq('machineID', 0);
+            .order('lastUsed', { ascending: true })
+            .limit(1));
+}
+async function insertNewUse(using: boolean)
+{
+        await supabase
+            .from('Machine')
+            .insert([{urlLink: "ezrepz.netlify.app", machineID: 1, muscleWorked: "Leg", isEmpty: using}]);
+}
 
 function App() {
-  let texts: string = "Welcome to the treadmill! Directly in front of you, you will find the safety clip. Please clip it onto your shirt now for your own safety. To the left of the clip, you will find the start button. To the right of the clip, you will find the stop button. Please find the metal grasps on the handles to your left and right. These will measure your heart rate. In front of the left heart rate sensor are the buttons for increasing and decreasing the incline. In front of the right heart rate sensor are the buttons for increasing and decreasing the speed. Please alert a member of staff if you have any issues. Have a good workout!";
+  let using = queryMachine();
+  insertNewUse(using);
+  let texts: string;
+  if (using)
+    texts = "Welcome to the treadmill! Directly in front of you, you will find the safety clip. Please clip in onto your shirt now for your own safety. To the left of the clip, you will find the start button. To the right of the clip, you will find the stop button. Please find the metal grasps on the handles to your left and right. These will measure your heart rate. In front of the left heart rate sensor are the buttons for increasing and decreasing the incline. In front of the right heart rate sensor are the buttons for increasing and decreasing the speed. Please alert a member of staff if you have any issues. Have a good workout!";
+  else
+    texts = "Goodbye. Thank you for coming!";
   useEffect(()=>{
     console.log("Hi");
     var msg = new SpeechSynthesisUtterance();

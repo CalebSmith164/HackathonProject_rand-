@@ -85,20 +85,6 @@ const ReadAlong: React.FC<ReadAlongProps> = ({ text, baseInterval = 1000 }) => {
     );
   }
 };
- function queryMachine () {
-          return !(supabase
-            .from('Machine')
-            .select('isEmpty')
-            .eq('machineID', 0)
-            .order('lastUsed', { ascending: true })
-            .limit(1));
-}
-async function insertNewUse(using: boolean)
-{
-        await supabase
-            .from('Machine')
-            .insert([{urlLink: "ezrepz.netlify.app", machineID: 1, muscleWorked: "Leg", isEmpty: using}]);
-}
 
 function App() {
   let using = queryMachine();

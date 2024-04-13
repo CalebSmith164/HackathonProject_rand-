@@ -67,7 +67,7 @@ const ReadAlong: React.FC<ReadAlongProps> = ({ text, baseInterval = 1000 }) => {
   }, [currentSentenceIndex, currentWordIndex, words, sentences, baseInterval]);
 
   if (isFinished) {
-    return <p>Finished reading.</p>;
+    return <p> </p>;
   } else {
     return (
       <p>
@@ -82,12 +82,12 @@ const ReadAlong: React.FC<ReadAlongProps> = ({ text, baseInterval = 1000 }) => {
 };
 
 function App() {
-  let texts: string = "Welcome to the treadmill! Directly in front of you, you will find the safety clip. Please clip in onto your shirt now for your own safety. To the left of the clip, you will find the start button. To the right of the clip, you will find the stop button. Please find the metal grasps on the handles to your left and right. These will measure your heart rate. In front of the left heart rate sensor are the buttons for increasing and decreasing the incline. In front of the right heart rate sensor are the buttons for increasing and decreasing the speed. Please alert a member of staff if you have any issues. Have a good workout!";
+  let texts: string = "Welcome to the treadmill! Directly in front of you, you will find the safety clip. Please clip it onto your shirt now for your own safety. To the left of the clip, you will find the start button. To the right of the clip, you will find the stop button. Please find the metal grasps on the handles to your left and right. These will measure your heart rate. In front of the left heart rate sensor are the buttons for increasing and decreasing the incline. In front of the right heart rate sensor are the buttons for increasing and decreasing the speed. Please alert a member of staff if you have any issues. Have a good workout!";
   useEffect(()=>{
     console.log("Hi");
     var msg = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
-    msg.text = "Welcome to the treadmill! Directly in front of you, you will find the safety clip. Please clip in onto your shirt now for your own safety. To the left of the clip, you will find the start button. To the right of the clip, you will find the stop button. Please find the metal grasps on the handles to your left and right. These will measure your heart rate. In front of the left heart rate sensor are the buttons for increasing and decreasing the incline. In front of the right heart rate sensor are the buttons for increasing and decreasing the speed. Please alert a member of staff if you have any issues. Have a good workout!";
+    msg.text = "Welcome to the treadmill! Directly in front of you, you will find the safety clip. Please clip it onto your shirt now for your own safety. To the left of the clip, you will find the start button. To the right of the clip, you will find the stop button. Please find the metal grasps on the handles to your left and right. These will measure your heart rate. In front of the left heart rate sensor are the buttons for increasing and decreasing the incline. In front of the right heart rate sensor are the buttons for increasing and decreasing the speed. Please alert a member of staff if you have any issues. Have a good workout!";
     msg.voice = voices[1];
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(msg);
